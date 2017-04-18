@@ -94,7 +94,7 @@ DEPENDENCIES
   pry
   rake
   rspec
-  shoulda-matchers (~> 2.0)
+  shoulda-matchers
   sinatra
   sinatra-activerecord
   sinatra-contrib
