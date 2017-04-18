@@ -13,10 +13,15 @@ end
 
 #index page links and buttons
 get("/") do
+  session[:id] = 1
   erb(:index)
 end
 
 get("/login") do
+  session[:id]
+
+  test1 = session[:id]
+  binding.pry
   erb(:login)
 end
 
