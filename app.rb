@@ -11,8 +11,30 @@ configure do
   enable :sessions
 end
 
+register do
+  def auth (type)
+    condition do
+      redirect "/login" unless send("is_#{type}?")
+    end
+  end
+end
+
+helpers do
+  def is_user?
+    @user != nil
+  end
+end
+
+before do
+  if session[:id] == nil
+    @user = nil
+  else
+    @user = User.find(session[:id])
+  end
+end
+
 #index page links and buttons
-get("/") do
+get "/", :auth => :user do
   @id = session[:id]
   erb(:index)
 end
@@ -48,9 +70,7 @@ post("/sign_up") do
   redirect('/success')
 end
 
-get ("/success") do
-  session[:id]
-  @user = User.find(session[:id])
+get "/success", :auth => :user do
   erb(:success)
 end
 
