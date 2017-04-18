@@ -25,7 +25,11 @@ post("/sign_up") do
   image = params.fetch('image')
   password = params.fetch('password')
   user = User.create({:username => username, :name => name, :image => image, :password =>password}) #create is the equivalent of user = User.new plus user.save()
-  redirect('/user')
+  redirect('/')
+end
+
+get("/user") do
+  erb(:user)
 end
 
 # test kevin
