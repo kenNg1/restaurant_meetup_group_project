@@ -5,9 +5,11 @@ gem("sinatra-activerecord")
 gem("rake")
 gem("pg")
 gem("sinatra")
+gem("rickshaw")
+gem('rack')
 
 group(:test) do
-  gem("shoulda-matchers", '~> 2.0')
+  gem("shoulda-matchers")
   gem("rspec")
   gem("capybara")
   gem("pry")

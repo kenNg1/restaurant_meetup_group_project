@@ -1,3 +1,7 @@
+<% if @id==nil %>
+
+<h3> You are not logged in </h3>
+
 <br><br>
 
 <button class="btn btn-primary" name="login" action="/login"><a href="/login">Log-in</a></button>
@@ -8,4 +12,12 @@
 
 <br><br>
 
-<button class="btn btn-primary" name="admin"><a href="/admin">admin</a></button>
+<button class="btn btn-primary" name="admin"><a href="/admin">Admin</a></button>
+
+<% else %>
+
+<br><br>
+
+<button class="btn btn-primary" name="admin"><a href="/logout">Logout</a></button>
+
+<% end %>

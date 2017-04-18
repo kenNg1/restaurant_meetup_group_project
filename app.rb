@@ -1,18 +1,37 @@
 require("bundler/setup")
 Bundler.require(:default)
 require('pry')
+require('rickshaw')
+require('rack')
 
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 also_reload("lib/*.rb")
 
+configure do
+  enable :sessions
+end
 
 #index page links and buttons
 get("/") do
+  @id = session[:id]
   erb(:index)
 end
 
 get("/login") do
   erb(:login)
+end
+
+post('/users') do
+  username = params.fetch('username')
+  password = params.fetch('password').to_sha1()
+  @user = User.find_by(username: username, password: password)
+  # not yet complete
+  if @user != nil
+    session[:id] = @user.id
+    redirect('/success')
+  else
+    redirect('/')
+  end
 end
 
 get("/sign_up") do
@@ -23,6 +42,20 @@ post("/sign_up") do
   name = params.fetch('name')
   username = params.fetch('username')
   image = params.fetch('image')
+  password = params.fetch('password').to_sha1()
+  @user = User.create({:username => username, :name => name, :image => image, :password =>password})
+  session[:id] = @user.id
+  redirect('/success')
+end
+
+get ("/success") do
+  session[:id]
+  @user = User.find(session[:id])
+  erb(:success)
+end
+
+get("/user") do
+  erb(:user)
   password = params.fetch('password')
   User.create({:username => username, :name => name, :image => image, :password =>password}) #create is the equivalent of user = User.new plus user.save()
   redirect('/')
@@ -57,6 +90,7 @@ post("/user") do
   redirect('/user')
 end
 
-
-
-# test kevin
+get('/logout') do
+  session.clear
+  redirect('/')
+end
