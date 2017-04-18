@@ -1,0 +1,6 @@
+development:
+  adapter: postgresql
+  database: neca_development
+test:
+  adapter: postgresql
+  database:  neca_test
