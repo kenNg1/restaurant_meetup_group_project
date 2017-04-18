@@ -7,8 +7,9 @@ require('rack')
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 also_reload("lib/*.rb")
 
-
+configure do
   enable :sessions
+end
 
 #index page links and buttons
 get("/") do
@@ -22,7 +23,8 @@ end
 post('/users') do
   username = params.fetch('username')
   password = params.fetch('password').to_sha1()
-  user = User.find_by(username: username, password: password)
+  @user = User.find_by(username: username, password: password)
+  # not yet complete
   redirect('/')
 end
 
@@ -35,9 +37,15 @@ post("/sign_up") do
   username = params.fetch('username')
   image = params.fetch('image')
   password = params.fetch('password').to_sha1()
-  @user = User.create({:username => username, :name => name, :image => image, :password =>password}) #create is the equivalent of user = User.new plus user.save()
+  @user = User.create({:username => username, :name => name, :image => image, :password =>password})
   session[:id] = @user.id
   redirect('/success')
+end
+
+get ("/success") do
+  session[:id]
+  @user = User.find(session[:id])
+  erb(:success)
 end
 
 get("/user") do
@@ -74,11 +82,4 @@ post("/user") do
   @district = params.fetch("district")
   @budget = params.fetch("budget")
   redirect('/user')
-end
-
-get ("/success") do
-  session[:id]
-  binding.pry
-  @user = User.find(session[:id])
-  erb(:success)
 end
