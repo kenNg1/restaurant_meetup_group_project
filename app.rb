@@ -13,15 +13,11 @@ end
 
 #index page links and buttons
 get("/") do
-  session[:id] = 1
+  @id = session[:id]
   erb(:index)
 end
 
 get("/login") do
-  session[:id]
-
-  test1 = session[:id]
-  binding.pry
   erb(:login)
 end
 
@@ -30,7 +26,12 @@ post('/users') do
   password = params.fetch('password').to_sha1()
   @user = User.find_by(username: username, password: password)
   # not yet complete
-  redirect('/')
+  if @user != nil
+    session[:id] = @user.id
+    redirect('/success')
+  else
+    redirect('/')
+  end
 end
 
 get("/sign_up") do
@@ -87,4 +88,9 @@ post("/user") do
   @district = params.fetch("district")
   @budget = params.fetch("budget")
   redirect('/user')
+end
+
+get('/logout') do
+  session.clear
+  redirect('/')
 end
