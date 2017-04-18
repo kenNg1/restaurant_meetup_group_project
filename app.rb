@@ -29,7 +29,7 @@ post("/sign_up") do
   username = params.fetch('username')
   image = params.fetch('image')
   password = params.fetch('password')
-  user = User.create({:username => username, :name => name, :image => image, :password =>password}) #create is the equivalent of user = User.new plus user.save()
+  User.create({:username => username, :name => name, :image => image, :password =>password}) #create is the equivalent of user = User.new plus user.save()
   redirect('/')
 end
 
@@ -47,14 +47,19 @@ post("/admin") do
   redirect('/admin')
 end
 
-get("/user") do
+get("/user/:id") do
   @cuisines = Cuisine.all()
   @districts = District.all()
   @budgets = Budget.all()
+  @user = User.find(params.fetch('id'))
+  erb(:user)
+end
+
+post("/user") do
   @cuisine = params.fetch("cuisine")
   @district = params.fetch("district")
   @budget = params.fetch("budget")
-  erb(:user)
+  redirect('/user')
 end
 
 

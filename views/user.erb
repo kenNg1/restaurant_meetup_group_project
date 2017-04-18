@@ -2,12 +2,12 @@
 
 <div>
 <img class="prof_pic" src="http://i.imgur.com/QgMNCT9.jpg?1"/>
-<%= user.name() %>
+<%= @user.name() %>
 <hr>
 </div>
 <br>
 <br>
-<form action="user">
+<form action="/user">
 <div class="form-group">
   <label for="cuisine">Cuisine</label>
   <select name="cuisine" id="cuisine">
@@ -28,7 +28,7 @@
   <label for="budget">Budget</label>
   <select name="budget" id="budget">
     <% @budgets.each() do |budget| %>
-    <option value="<%= budget.name() %>"><%= budget.name() %></option>
+    <option value="<%= budget.scale() %>"><%= budget.scale() %></option>
     <% end %>
   </select>
 </div>
