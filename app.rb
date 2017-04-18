@@ -28,8 +28,30 @@ post("/sign_up") do
   redirect('/')
 end
 
+get("/admin") do
+  erb(:admin)
+end
+
+post("/admin") do
+  cuisineName = params.fetch("cuisine")
+  districtName = params.fetch("district")
+  budgetName = params.fetch("budget")
+  Cuisine.where(:name => cuisineName).first_or_create({:name => cuisineName})
+  District.where(:name => districtName).first_or_create({:name => districtName})
+  Budget.where(:scale => budgetName).first_or_create({:scale => budgetName})
+  redirect('/admin')
+end
+
 get("/user") do
+  @cuisines = Cuisine.all()
+  @districts = District.all()
+  @budgets = Budget.all()
+  @cuisine = params.fetch("cuisine")
+  @district = params.fetch("district")
+  @budget = params.fetch("budget")
   erb(:user)
 end
+
+
 
 # test kevin

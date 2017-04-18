@@ -1,0 +1,38 @@
+<wrapper class="container">
+
+<div>
+<img class="prof_pic" src="http://i.imgur.com/QgMNCT9.jpg?1"/>
+<%= user.name() %>
+<hr>
+</div>
+<br>
+<br>
+<form action="user">
+<div class="form-group">
+  <label for="cuisine">Cuisine</label>
+  <select name="cuisine" id="cuisine">
+    <% @cuisines.each() do |cuisine| %>
+    <option value="<%= cuisine.name() %>"><%= cuisine.name() %></option>
+    <% end %>
+  </select>
+</div>
+<div class="form-group">
+  <label for="district">District</label>
+  <select name="district" id="district">
+    <% @districts.each() do |district| %>
+    <option value="<%= district.name() %>"><%= district.name() %></option>
+    <% end %>
+  </select>
+</div>
+<div class="form-group">
+  <label for="budget">Budget</label>
+  <select name="budget" id="budget">
+    <% @budgets.each() do |budget| %>
+    <option value="<%= budget.name() %>"><%= budget.name() %></option>
+    <% end %>
+  </select>
+</div>
+<button type="submit" class="btn">Submit</button>
+</form>
+
+</wrapper>
