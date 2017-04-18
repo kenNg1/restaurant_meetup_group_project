@@ -34,7 +34,7 @@ before do
 end
 
 #index page links and buttons
-get "/", :auth => :user do
+get "/" do
   @id = session[:id]
   erb(:index)
 end
@@ -52,7 +52,7 @@ post('/users') do
     session[:id] = @user.id
     redirect('/success')
   else
-    redirect('/')
+    redirect('/login')
   end
 end
 
@@ -65,9 +65,13 @@ post("/sign_up") do
   username = params.fetch('username')
   image = params.fetch('image')
   password = params.fetch('password').to_sha1()
-  @user = User.create({:username => username, :name => name, :image => image, :password =>password})
-  session[:id] = @user.id
-  redirect('/success')
+  @user = User.new({:username => username, :name => name, :image => image, :password =>password})
+  if @user.save()
+    session[:id] = @user.id
+    redirect('/success')
+  else
+    erb(:errors)
+  end
 end
 
 get "/success", :auth => :user do
