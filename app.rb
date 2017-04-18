@@ -5,13 +5,18 @@ require('pry')
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 also_reload("lib/*.rb")
 
-
+enable :sessions
 #index page links and buttons
 get("/") do
+  session[:id] = 1
   erb(:index)
 end
 
 get("/login") do
+  session[:id]
+
+  test1 = session[:id]
+  binding.pry
   erb(:login)
 end
 
