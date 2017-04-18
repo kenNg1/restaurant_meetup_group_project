@@ -7,6 +7,7 @@ require('rack')
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 also_reload("lib/*.rb")
 
+
   enable :sessions
 
 #index page links and buttons
