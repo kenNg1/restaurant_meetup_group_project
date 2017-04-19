@@ -73,7 +73,7 @@ post("/sign_up") do
     erb(:errors)
   end
 end
-
+#test
 get "/success", :auth => :user do
   erb(:success)
 end
