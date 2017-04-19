@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many(:match_as_user2, :class_name => 'Match', :foreign_key => 'user2_id')
   validates :username, presence: true
   validates :username, uniqueness: { case_sensitive: false }
+
 end
 
 
