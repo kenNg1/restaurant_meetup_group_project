@@ -1,2 +1,19 @@
-<img id="user_img" src="<%= @users[0].image() %>" alt=“member_photo”>
-<%= @users[0].name %>
+<div id="matching_frame">
+<img id="user_img" src="<%= @users[0].image() %>" alt=“member_photo”> <br>
+<br>
+<span id="match_name"><%= @users[0].name %></span> <br>
+<div class="row">
+  <form action="#" method="post">
+  <div class="col-md-3">
+  </div>
+  <div class="col-md-3">
+    <button type="submit" value=0 class="btn-danger btn-lg glyphicon glyphicon-thumbs-down" id="no"></button>
+  </div>
+  <div class="col-md-3">
+    <button type="submit" value=1 class="btn-success btn-lg glyphicon glyphicon-thumbs-up" id="yes"></button>
+  </div>
+  <div class="col-md-3">
+  </div>
+</form>
+</div>
+</div>
