@@ -1,7 +1,8 @@
 <wrapper class="container">
 
 <div class="container">
-<img id="user_img" src="http://i.imgur.com/QgMNCT9.jpg?1"/><br>
+<img id="user_img" src="<%= @user.image() %>" alt=“member_photo”>
+<br>
 <%= @user.name() %>
 <hr>
 </div>

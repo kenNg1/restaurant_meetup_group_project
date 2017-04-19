@@ -35,7 +35,8 @@ before do
 end
 
 #index page links and buttons
-get "/" do
+get "/",  :auth => :user do
+  @id = @user.id()
   erb(:index)
 end
 
@@ -115,4 +116,13 @@ end
 get('/logout') do
   session.clear
   redirect('/')
+end
+
+get('/matching') do
+  @users = User.all()
+  erb(:matching)
+end
+
+post('/matching') do
+  redirect('/matching')
 end
