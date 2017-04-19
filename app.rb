@@ -35,8 +35,7 @@ before do
 end
 
 #index page links and buttons
-get "/",  :auth => :user do
-  @id = @user.id()
+get "/", :auth => :user do
   erb(:index)
 end
 
@@ -97,7 +96,6 @@ get"/user", :auth => :user do
   @cuisines = Cuisine.all()
   @districts = District.all()
   @budgets = Budget.all()
-  @user = User.find(params.fetch('id'))
   erb(:user)
 end
 
