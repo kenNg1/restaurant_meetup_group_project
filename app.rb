@@ -92,7 +92,7 @@ post("/admin") do
   redirect('/admin')
 end
 
-get("/user/:id") do
+get("/user") do
   @cuisines = Cuisine.all()
   @districts = District.all()
   @budgets = Budget.all()
