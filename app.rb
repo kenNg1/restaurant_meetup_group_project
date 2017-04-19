@@ -65,7 +65,7 @@ post("/sign_up") do
   username = params.fetch('username')
   image = params.fetch('image')
   password = params.fetch('password').to_sha1()
-  @user = User.new({:username => usgitername, :name => name, :image => image, :password =>password})
+  @user = User.new({:username => username, :name => name, :image => image, :password =>password})
   if @user.save()
     session[:id] = @user.id
     redirect('/success')
