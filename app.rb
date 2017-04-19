@@ -78,13 +78,6 @@ get "/success", :auth => :user do
   erb(:success)
 end
 
-get("/user") do
-  erb(:user)
-  password = params.fetch('password')
-  User.create({:username => username, :name => name, :image => image, :password =>password}) #create is the equivalent of user = User.new plus user.save()
-  redirect('/')
-end
-
 get("/admin") do
   erb(:admin)
 end
@@ -103,7 +96,6 @@ get("/user/:id") do
   @cuisines = Cuisine.all()
   @districts = District.all()
   @budgets = Budget.all()
-  @user = User.find(params.fetch('id'))
   erb(:user)
 end
 
