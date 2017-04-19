@@ -12,7 +12,7 @@
   <label for="cuisine">Cuisine</label>
   <select name="cuisine" id="cuisine">
     <% @cuisines.each() do |cuisine| %>
-    <option value="<%= cuisine.name() %>"><%= cuisine.name() %></option>
+    <option value="<%= cuisine.id() %>"><%= cuisine.name() %></option>
     <% end %>
   </select>
 </div>
@@ -20,7 +20,7 @@
   <label for="district">District</label>
   <select name="district" id="district">
     <% @districts.each() do |district| %>
-    <option value="<%= district.name() %>"><%= district.name() %></option>
+    <option value="<%= district.id() %>"><%= district.name() %></option>
     <% end %>
   </select>
 </div>
@@ -28,7 +28,7 @@
   <label for="budget">Budget</label>
   <select name="budget" id="budget">
     <% @budgets.each() do |budget| %>
-    <option value="<%= budget.scale() %>"><%= budget.scale() %></option>
+    <option value="<%= budget.id() %>"><%= budget.scale() %></option>
     <% end %>
   </select>
 </div>

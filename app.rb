@@ -50,7 +50,7 @@ post('/users') do
   # not yet complete
   if @user != nil
     session[:id] = @user.id
-    redirect('/user')
+    redirect('/success')
   else
     redirect('/login')
   end
@@ -68,7 +68,7 @@ post("/sign_up") do
   @user = User.new({:username => username, :name => name, :image => image, :password =>password})
   if @user.save()
     session[:id] = @user.id
-    redirect('/user')
+    redirect('/success')
   else
     erb(:errors)
   end
@@ -99,7 +99,7 @@ post("/admin") do
   redirect('/admin')
 end
 
-get("/user") do
+get("/user/:id") do
   @cuisines = Cuisine.all()
   @districts = District.all()
   @budgets = Budget.all()
