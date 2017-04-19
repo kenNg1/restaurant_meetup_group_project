@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
   validates :username, uniqueness: { case_sensitive: false }
 end
 
-# kevin = User.create (:name => 'kevin', .....)
-# alex = User.create(:name => 'alex', .....)
-# match1 = Match.create (:user1 => kevin, :user2 => alex)
+
+=begin
+# help to understand has_many(:match_as_user1, :class_name => 'Match', :foreign_key => 'user1_id')
+# http://stackoverflow.com/questions/18154736/has-many-through-with-class-name-and-foreign-key
+=end
