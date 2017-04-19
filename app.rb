@@ -109,7 +109,6 @@ end
 
 get('/match_making') do
   @number = 0
-  @time_to_stop = false
   @users = @user.matchmake()
   @current_user = @user.matchmake[@number]
   erb(:match_making)
@@ -134,7 +133,8 @@ end
       @number=0
     end
     @current_user = @user.matchmake[@number]
-    @user.user1_accept(@current_user.id())
+    @user_to_be_added = @user.matchmake[@number-1]
+    @user.user1_accept(@user_to_be_added.id())
     erb(:match_making)
   end
 

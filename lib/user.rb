@@ -43,6 +43,17 @@ class User < ActiveRecord::Base
     match = Match.create({:user1_id => self.id, :user2_id => user2_id, :user1_like => true })
   end
 
+  define_method(:matchmake_invitations) do
+    matches = Match.all()
+    invitations = []
+    matches.each() do |match|
+      if match.user2_id == self.id()
+        invitations.push(User.find(match.user1_id()))
+      end
+    end
+    invitations
+  end
+
 end
 
 
