@@ -3,7 +3,7 @@ a {
   width: 60px;
 }
 
-#user_img {
+.user_img {
   height: 200px;
   border-radius: 10px;
 }
