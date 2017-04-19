@@ -112,12 +112,7 @@ patch("/user") do
   district_id = params.fetch("district_id")
   budget_id = params.fetch("budget_id")
   @user.update({:cuisine_id => cuisine_id, :district_id => district_id, :budget_id => budget_id})
-  redirect('/match_making')
-end
-
-get('/match_making') do
-  @users = User.all()
-  erb(:match_making)
+  redirect('/user')
 end
 
 get('/logout') do
