@@ -1,28 +1,19 @@
-<%=@user.name()%>
-<%=@user.id%>
-<%=@user.cuisine_id%>
-<%=@user.district_id%>
-<%=@user.budget_id%>
-
 <% @users.each() do |user| %>
-  <%if user.district_id == @user.district_id && user.cuisine_id == @user.cuisine_id && user.budget_id == @user.budget_id%>
-  <ul>
     <li><%=user.name()%></li>
-  </ul>
-
-  <%elsif user.district_id == @user.district_id && user.budget_id == @user.budget_id%>
-
-  <ul>
-    <li><%=user.name()%></li>
-  </ul>
-
-  <%elsif user.district_id == @user.district_id || user.budget_id == @user.budget_id%>
-
-  <ul>
-    <li><%=user.name()%></li>
-  </ul>
-
-  <%else%>
-  <li><%=user.name()%></li>
-  <%end%>
 <%end%>
+
+<h1>Above is cleared</h1>
+
+<h1>Below display current match</h1>
+
+<h1><%= @current_user.name %></h1>
+
+<form action='/match_cross' method='post'>
+  <input type='hidden' id='count' name='count' value="<%= @number%>">
+  <button type='submit' class='btn btn-success' name='button'>Cross</button>
+</form>
+
+<form action='/match_tick' method='post'>
+  <input type='hidden' id='count' name='count' value="<%= @number%>">
+  <button type='submit' class='btn btn-success' name='button'>Tick</button>
+</form>

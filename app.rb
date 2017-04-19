@@ -35,7 +35,7 @@ before do
 end
 
 #index page links and buttons
-get "/", :auth => :user do
+get "/" do
   erb(:index)
 end
 
@@ -108,9 +108,35 @@ patch("/user") do
 end
 
 get('/match_making') do
-  @users = User.all()
+  @number = 0
+  @time_to_stop = false
+  @users = @user.matchmake()
+  @current_user = @user.matchmake[@number]
   erb(:match_making)
 end
+
+  post('/match_cross') do
+    @users = @user.matchmake()
+    if params.fetch('count').to_i() < @users.length()-1
+      @number = params.fetch('count').to_i() + 1
+    else
+      @number=0
+    end
+    @current_user = @user.matchmake[@number]
+    erb(:match_making)
+  end
+
+  post('/match_tick') do
+    @users = @user.matchmake()
+    if params.fetch('count').to_i() < @users.length()-1
+      @number = params.fetch('count').to_i() + 1
+    else
+      @number=0
+    end
+    @current_user = @user.matchmake[@number]
+    @user.user1_accept(@current_user.id())
+    erb(:match_making)
+  end
 
 get('/logout') do
   session.clear
