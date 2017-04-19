@@ -116,3 +116,12 @@ get('/logout') do
   session.clear
   redirect('/')
 end
+
+get('/matching') do
+  @users = User.all()
+  erb(:matching)
+end
+
+post('/matching') do
+  redirect('/matching')
+end
