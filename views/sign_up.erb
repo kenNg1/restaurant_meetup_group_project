@@ -15,18 +15,6 @@
     <label for="password">Password:</label>
     <input type="text" name="password" id="password">
   </div>
-  <div>
-    <label for="passwordConfirm">Type your password again:</label>
-    <input type="text" name="passwordConfirm" id="passwordConfirm">
-    <script type="text/javascript">
-      $('#passwordConfirm').bind("cut copy paste",function(e){
-        e.preventDefault();
-      });
-    </script>
-  </div>
-  <% if (params.fetch('password').!=(params.fetch('passwordConfirm')))%>
-      <% alert("Your passwords don't match. Please try again") %>
-  <% else %>
+
   <button type="submit" class="btn btn-success" name="button">Sign-up</button>
-  <% end %>
 </form>
