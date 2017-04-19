@@ -3,6 +3,7 @@ Bundler.require(:default)
 require('pry')
 require('rickshaw')
 require('rack')
+require "sinatra/reloader"
 
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 also_reload("lib/*.rb")
@@ -35,7 +36,6 @@ end
 
 #index page links and buttons
 get "/" do
-  @id = session[:id]
   erb(:index)
 end
 
@@ -99,7 +99,7 @@ post("/admin") do
   redirect('/admin')
 end
 
-get("/user/:id") do
+get"/user", :auth => :user do
   @cuisines = Cuisine.all()
   @districts = District.all()
   @budgets = Budget.all()
@@ -107,10 +107,11 @@ get("/user/:id") do
   erb(:user)
 end
 
-post("/user") do
-  @cuisine = params.fetch("cuisine")
-  @district = params.fetch("district")
-  @budget = params.fetch("budget")
+patch("/user") do
+  cuisine_id = params.fetch("cuisine_id")
+  district_id = params.fetch("district_id")
+  budget_id = params.fetch("budget_id")
+  @user.update({:cuisine_id => cuisine_id, :district_id => district_id, :budget_id => budget_id})
   redirect('/user')
 end
 
