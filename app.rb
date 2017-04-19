@@ -50,7 +50,7 @@ post('/users') do
   # not yet complete
   if @user != nil
     session[:id] = @user.id
-    redirect('/success')
+    redirect('/user')
   else
     redirect('/login')
   end
@@ -68,7 +68,7 @@ post("/sign_up") do
   @user = User.new({:username => username, :name => name, :image => image, :password =>password})
   if @user.save()
     session[:id] = @user.id
-    redirect('/success')
+    redirect('/user')
   else
     erb(:errors)
   end
