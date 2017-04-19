@@ -1,0 +1,6 @@
+    <% @user.errors().full_messages().each() do |message| %>
+      <p><%= message %></p>
+    <% end %>
+
+
+  <a href="/sign_up">Return to sign-up page to try again</a>

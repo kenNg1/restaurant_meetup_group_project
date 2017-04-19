@@ -1,18 +1,59 @@
 require("bundler/setup")
 Bundler.require(:default)
 require('pry')
+require('rickshaw')
+require('rack')
 
 Dir[File.dirname(__FILE__) + '/lib/*.rb'].each { |file| require file }
 also_reload("lib/*.rb")
 
+configure do
+  enable :sessions
+end
+
+register do
+  def auth (type)
+    condition do
+      redirect "/login" unless send("is_#{type}?")
+    end
+  end
+end
+
+helpers do
+  def is_user?
+    @user != nil
+  end
+end
+
+before do
+  if session[:id] == nil
+    @user = nil
+  else
+    @user = User.find(session[:id])
+  end
+end
 
 #index page links and buttons
-get("/") do
+get "/" do
+  @id = session[:id]
   erb(:index)
 end
 
 get("/login") do
   erb(:login)
+end
+
+post('/users') do
+  username = params.fetch('username')
+  password = params.fetch('password').to_sha1()
+  @user = User.find_by(username: username, password: password)
+  # not yet complete
+  if @user != nil
+    session[:id] = @user.id
+    redirect('/success')
+  else
+    redirect('/login')
+  end
 end
 
 get("/sign_up") do
@@ -23,9 +64,18 @@ post("/sign_up") do
   name = params.fetch('name')
   username = params.fetch('username')
   image = params.fetch('image')
-  password = params.fetch('password')
-  User.create({:username => username, :name => name, :image => image, :password =>password}) #create is the equivalent of user = User.new plus user.save()
-  redirect('/')
+  password = params.fetch('password').to_sha1()
+  @user = User.new({:username => username, :name => name, :image => image, :password =>password})
+  if @user.save()
+    session[:id] = @user.id
+    redirect('/success')
+  else
+    erb(:errors)
+  end
+end
+
+get "/success", :auth => :user do
+  erb(:success)
 end
 
 get("/admin") do
@@ -46,7 +96,6 @@ get("/user/:id") do
   @cuisines = Cuisine.all()
   @districts = District.all()
   @budgets = Budget.all()
-  @user = User.find(params.fetch('id'))
   erb(:user)
 end
 
@@ -57,6 +106,7 @@ post("/user") do
   redirect('/user')
 end
 
-
-
-# test kevin
+get('/logout') do
+  session.clear
+  redirect('/')
+end
