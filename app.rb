@@ -51,7 +51,7 @@ post('/users') do
   # not yet complete
   if @user != nil
     session[:id] = @user.id
-    redirect('/user')
+    redirect('/success')
   else
     redirect('/login')
   end
@@ -69,14 +69,21 @@ post("/sign_up") do
   @user = User.new({:username => username, :name => name, :image => image, :password =>password})
   if @user.save()
     session[:id] = @user.id
-    redirect('/user')
+    redirect('/success')
   else
     erb(:errors)
   end
 end
-
+#test
 get "/success", :auth => :user do
   erb(:success)
+end
+
+get("/user") do
+  erb(:user)
+  password = params.fetch('password')
+  User.create({:username => username, :name => name, :image => image, :password =>password}) #create is the equivalent of user = User.new plus user.save()
+  redirect('/')
 end
 
 get("/admin") do
@@ -97,6 +104,7 @@ get"/user", :auth => :user do
   @cuisines = Cuisine.all()
   @districts = District.all()
   @budgets = Budget.all()
+  @user = User.find(params.fetch('id'))
   erb(:user)
 end
 
