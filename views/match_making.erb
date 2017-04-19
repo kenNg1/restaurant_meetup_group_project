@@ -5,5 +5,24 @@
 <%=@user.budget_id%>
 
 <% @users.each() do |user| %>
-  <%=user.name()%></li>
+  <%if user.district_id == @user.district_id && user.cuisine_id == @user.cuisine_id && user.budget_id == @user.budget_id%>
+  <ul>
+    <li><%=user.name()%></li>
+  </ul>
+
+  <%elsif user.district_id == @user.district_id && user.budget_id == @user.budget_id%>
+
+  <ul>
+    <li><%=user.name()%></li>
+  </ul>
+
+  <%elsif user.district_id == @user.district_id || user.budget_id == @user.budget_id%>
+
+  <ul>
+    <li><%=user.name()%></li>
+  </ul>
+
+  <%else%>
+  <li><%=user.name()%></li>
+  <%end%>
 <%end%>
