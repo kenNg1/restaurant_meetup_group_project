@@ -1,20 +1,35 @@
+<img id="user_img" src="<%= @current_user.image() %>" alt=“member_photo”>
+
+<br>
+
+<h1><%= @current_user.name %></h1>
+
+<div class='row'>
+
+  <div class="col-md-3">
+  </div>
+  <div class="col-md-3">
+    <form action='/match_cross' method='post'>
+      <input type='hidden' id='count' name='count' value="<%= @number%>">
+      <button type='submit' class="btn-danger btn-lg glyphicon glyphicon-thumbs-down" name='button'>Cross</button>
+    </form>
+  </div>
+  <div class="col-md-3">
+    <form action='/match_tick' method='post'>
+      <input type='hidden' id='count' name='count' value="<%= @number%>">
+      <button type='submit' class="btn-success btn-lg glyphicon glyphicon-thumbs-up" name='button'>Tick</button>
+    </form>
+  </div>
+  <div class="col-md-3">
+  </div>
+</div>
+<br>
+
+<!--
+FOR YOUR REFERENCE :D
+
 <h1>Matchmake</h1>
 
 <% @users.each() do |user| %>
     <li><%=user.name()%></li>
-<%end%>
-
-
-<h1>Below display current match</h1>
-
-<h1><%= @current_user.name %></h1>
-
-<form action='/match_cross' method='post'>
-  <input type='hidden' id='count' name='count' value="<%= @number%>">
-  <button type='submit' class='btn btn-success' name='button'>Cross</button>
-</form>
-
-<form action='/match_tick' method='post'>
-  <input type='hidden' id='count' name='count' value="<%= @number%>">
-  <button type='submit' class='btn btn-success' name='button'>Tick</button>
-</form>
+<%end%> -->
