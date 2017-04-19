@@ -1,3 +1,10 @@
 a {
   color: white;
 }
+
+#user_img {
+  height: 200px;
+  border-radius: 10px;
+
+
+}
